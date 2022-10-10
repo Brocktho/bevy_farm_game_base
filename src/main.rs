@@ -1,15 +1,29 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, window::WindowMode};
 
 mod controls;
+mod setup;
+mod states;
+
 fn main() {
     App::new()
+        /*         .insert_resource(WindowDescriptor {
+            width: 800.0,
+            height: 600.0,
+            title: String::from("Who Cares"),
+            mode: WindowMode::Windowed,
+            resizable: false,
+            ..default()
+        }) */
         .add_plugins(DefaultPlugins)
         .add_system(controls::controller_system::gamepad_connections)
-        .add_system(setup)
+        //.add_system(setup)
+        .add_startup_system(setup::menu::ui_camera)
+        .add_startup_system(setup::menu::main_menu)
+        .add_state(states::base::GameState::MainMenu)
         .run();
 }
 
-fn setup(
+/* fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
@@ -43,3 +57,4 @@ fn setup(
         ..default()
     });
 }
+ */
