@@ -26,6 +26,8 @@ pub fn gamepad_connections(
     mut commands: Commands,
     the_gamepad: Option<Res<MyGamepad>>,
     mut gamepad_evr: EventReader<GamepadEvent>,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     for ev in gamepad_evr.iter() {
         let id = ev.gamepad;
@@ -54,11 +56,21 @@ pub fn gamepad_connections(
             }
 
             GamepadEventType::ButtonChanged(kind, val) => match kind {
-                GamepadButtonType::RightTrigger => create_projectile(),
+                GamepadButtonType::RightTrigger => create_projectile(commands, meshes, materials),
                 _default => println!("Hit {:?} with val {:?}", kind, val),
             },
         }
     }
 }
 
-pub fn create_projectile() {}
+pub fn create_projectile(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+) {
+    commands.spawn_bundle(PbrBundle {
+        mesh: meshes.add(Mesh::from(shape::Capsule { ..default() })),
+        material: materials.add(Color::rgb(0.8, 0.7, 0.6).into()),
+        ..default()
+    });
+}
