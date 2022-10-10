@@ -1,6 +1,7 @@
-use bevy::{prelude::*, window::WindowMode};
+use bevy::prelude::*;
 
 mod controls;
+mod logging;
 mod setup;
 mod states;
 
@@ -15,10 +16,10 @@ fn main() {
             ..default()
         }) */
         .add_plugins(DefaultPlugins)
+        .add_plugin(setup::menu::MainMenuPlugin)
         .add_system(controls::controller_system::gamepad_connections)
         //.add_system(setup)
         .add_startup_system(setup::menu::ui_camera)
-        .add_startup_system(setup::menu::main_menu)
         .add_state(states::base::GameState::MainMenu)
         .run();
 }
