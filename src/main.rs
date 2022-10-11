@@ -1,5 +1,6 @@
 use bevy::prelude::*;
-
+use bevy_hanabi::HanabiPlugin;
+use bevy_inspector_egui::WorldInspectorPlugin;
 mod controls;
 mod logging;
 mod setup;
@@ -17,7 +18,11 @@ fn main() {
         }) */
         .add_plugins(DefaultPlugins)
         .add_plugin(setup::menu::MainMenuPlugin)
+        .add_plugin(setup::scene::GameScenePlugin)
+        .add_plugin(setup::settings::SettingsPlugin)
+        .add_plugin(WorldInspectorPlugin::new())
         .add_system(controls::controller_system::gamepad_connections)
+        .add_plugin(HanabiPlugin)
         //.add_system(setup)
         .add_startup_system(setup::menu::ui_camera)
         .add_state(states::base::GameState::MainMenu)
