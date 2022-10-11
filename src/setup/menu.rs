@@ -1,6 +1,7 @@
 use crate::states::base::*;
 use bevy::app::AppExit;
 use bevy::input::keyboard::KeyboardInput;
+use bevy::input::ButtonState;
 use bevy::prelude::{Camera2dBundle, Commands, *};
 use bevy::ui::UiColor;
 
@@ -128,18 +129,19 @@ pub fn handle_menu_interactions(
                 MenuItem::Play => {
                     // do nothing for now
                     commands.entity(entity).remove::<RevertScale>();
+                    commands.entity(entity).remove::<KeyFocus>();
                     commands.entity(entity).insert(Scale);
                 }
                 MenuItem::Controls => {
                     // do nothing for now
                     commands.entity(entity).remove::<RevertScale>();
-
+                    commands.entity(entity).remove::<KeyFocus>();
                     commands.entity(entity).insert(Scale);
                 }
                 MenuItem::Exit => {
                     // do nothing for now
                     commands.entity(entity).remove::<RevertScale>();
-
+                    commands.entity(entity).remove::<KeyFocus>();
                     commands.entity(entity).insert(Scale);
                 }
             }
@@ -184,13 +186,107 @@ pub fn navigate_with_key(
     mut app_state: ResMut<State<GameState>>,
     mut key_event: EventReader<KeyboardInput>,
     buttons: Query<(&MenuItem, Entity, &Grid)>,
-    focused: Query<(&MenuItem, Entity, &Grid, With<KeyFocus>)>,
+    focused: Query<(&MenuItem, &Grid, With<KeyFocus>)>,
     mut commands: Commands,
 ) {
     for key in key_event.iter() {
-        buttons.iter().for_each(|(item, entity, grid_pos)| {
-            // do nothing
-        })
+        let mut focused_button_pos: Vec<i32> = vec![0, -1];
+        focused.for_each(|(_item, grid_pos, _key)| {
+            focused_button_pos = vec![grid_pos.x, grid_pos.y];
+        });
+        match key.state {
+            ButtonState::Pressed => {
+                let code = key.key_code.unwrap_or(KeyCode::Backslash);
+                match code {
+                    KeyCode::Tab => {
+                        buttons.iter().for_each(|(_item, entity, grid_pos)| {
+                            // do nothing
+                            if focused_button_pos[1] == 2 {
+                                if grid_pos.y == 0 {
+                                    commands.entity(entity).insert(KeyFocus);
+                                    commands.entity(entity).insert(Scale);
+                                    commands.entity(entity).remove::<RevertScale>();
+                                }
+                            } else {
+                                if grid_pos.y == focused_button_pos[1] + 1 {
+                                    commands.entity(entity).insert(KeyFocus);
+                                    commands.entity(entity).insert(Scale);
+                                    commands.entity(entity).remove::<RevertScale>();
+                                }
+                            }
+                            if grid_pos.y == focused_button_pos[1] {
+                                commands.entity(entity).remove::<KeyFocus>();
+                            }
+                        })
+                    }
+                    KeyCode::Up => {
+                        buttons.iter().for_each(|(_item, entity, grid_pos)| {
+                            // do nothing
+                            if focused_button_pos[1] == 0 {
+                                if grid_pos.y == 2 {
+                                    commands.entity(entity).insert(KeyFocus);
+                                    commands.entity(entity).insert(Scale);
+                                    commands.entity(entity).remove::<RevertScale>();
+                                }
+                            } else {
+                                if grid_pos.y == focused_button_pos[1] - 1 {
+                                    commands.entity(entity).insert(KeyFocus);
+                                    commands.entity(entity).insert(Scale);
+                                    commands.entity(entity).remove::<RevertScale>();
+                                }
+                            }
+                            if grid_pos.y == focused_button_pos[1] {
+                                commands.entity(entity).remove::<KeyFocus>();
+                            }
+                        })
+                    }
+                    KeyCode::Down => {
+                        buttons.iter().for_each(|(_item, entity, grid_pos)| {
+                            // do nothing
+                            if focused_button_pos[1] == 2 {
+                                if grid_pos.y == 0 {
+                                    commands.entity(entity).insert(KeyFocus);
+                                    commands.entity(entity).insert(Scale);
+                                    commands.entity(entity).remove::<RevertScale>();
+                                }
+                            } else {
+                                if grid_pos.y == focused_button_pos[1] + 1 {
+                                    commands.entity(entity).insert(KeyFocus);
+                                    commands.entity(entity).insert(Scale);
+                                    commands.entity(entity).remove::<RevertScale>();
+                                }
+                            }
+                            if grid_pos.y == focused_button_pos[1] {
+                                commands.entity(entity).remove::<KeyFocus>();
+                            }
+                        })
+                    }
+                    KeyCode::Return | KeyCode::Space => {
+                        focused.for_each(|(item, _grid, _key)| match item {
+                            MenuItem::Play => {
+                                app_state
+                                    .push(GameState::GameLoop)
+                                    .map_err(|err| error!("Failed to start game: {}", err))
+                                    .unwrap();
+                            }
+                            MenuItem::Controls => {
+                                app_state
+                                    .push(GameState::Settings)
+                                    .map_err(|err| error!("Failed to open settings: {}", err))
+                                    .unwrap();
+                            }
+                            MenuItem::Exit => app_exit_events.send(AppExit),
+                        })
+                    }
+                    _default => {
+                        // do nothing
+                    }
+                }
+            }
+            _default => {
+                // do nothing
+            }
+        }
     }
 }
 
