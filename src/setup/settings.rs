@@ -1,71 +1,39 @@
-use crate::states::base::*;
+use crate::setup::menu::{Grid, KeyFocus, RevertScale, Scale};
+use crate::states::base::GameState;
 use bevy::app::AppExit;
 use bevy::input::keyboard::KeyboardInput;
 use bevy::input::ButtonState;
-use bevy::prelude::{Camera2dBundle, Commands, *};
-use bevy::render::camera::ScalingMode;
-use bevy::ui::UiColor;
+use bevy::prelude::*;
 
-#[derive(Component)]
-pub struct MyCamera;
+pub struct SettingsPlugin;
 
-pub fn ui_camera(mut commands: Commands) {
-    commands
-        .spawn_bundle(Camera2dBundle {
-            projection: OrthographicProjection {
-                scale: 500.0,
-                scaling_mode: ScalingMode::FixedVertical(1.),
-                ..default()
-            },
-            ..default()
-        })
-        .insert(MyCamera);
+#[derive(Component, Clone, Copy)]
+pub enum SettingsItem {
+    Resume,
+    MainMenu,
+    Quit,
 }
 
 #[derive(Component)]
-pub struct MainMenu;
+pub struct SettingsMenu;
 
-#[derive(Clone, Copy, Component)]
-pub enum MenuItem {
-    Play,
-    Controls,
-    Exit,
-}
-
-#[derive(Component)]
-pub struct Grid {
-    pub x: i32,
-    pub y: i32,
-}
-#[derive(Component)]
-pub struct Scale;
-
-#[derive(Component)]
-pub struct RevertScale;
-
-#[derive(Component)]
-pub struct KeyFocus;
-
-pub struct MainMenuPlugin;
-
-impl Plugin for MainMenuPlugin {
+impl Plugin for SettingsPlugin {
     fn build(&self, app: &mut App) {
-        app.add_system_set(SystemSet::on_enter(GameState::MainMenu).with_system(main_menu))
-            .add_system_set(SystemSet::on_resume(GameState::MainMenu).with_system(main_menu))
+        app.add_system_set(SystemSet::on_enter(GameState::Settings).with_system(init_settings))
+            .add_system_set(SystemSet::on_update(GameState::Settings).with_system(hover_menu))
+            .add_system_set(SystemSet::on_update(GameState::Settings).with_system(remove_hover))
             .add_system_set(
-                SystemSet::on_update(GameState::MainMenu).with_system(handle_menu_interactions),
+                SystemSet::on_update(GameState::Settings).with_system(handle_settings_interactions),
             )
-            .add_system_set(SystemSet::on_update(GameState::MainMenu).with_system(hover_menu))
-            .add_system_set(SystemSet::on_update(GameState::MainMenu).with_system(remove_hover))
             .add_system_set(
-                SystemSet::on_update(GameState::MainMenu).with_system(navigate_with_key),
+                SystemSet::on_update(GameState::Settings).with_system(navigate_settings_with_keys),
             )
-            .add_system_set(SystemSet::on_pause(GameState::MainMenu).with_system(remove_menu))
-            .add_system_set(SystemSet::on_exit(GameState::MainMenu).with_system(remove_menu));
+            .add_system_set(SystemSet::on_pause(GameState::Settings).with_system(remove_menu))
+            .add_system_set(SystemSet::on_exit(GameState::Settings).with_system(remove_menu));
     }
 }
 
-pub fn remove_menu(mut commands: Commands, query: Query<Entity, With<MainMenu>>) {
+pub fn remove_menu(mut commands: Commands, query: Query<Entity, With<SettingsMenu>>) {
     for entity in query.iter() {
         commands.entity(entity).despawn_recursive();
     }
@@ -94,13 +62,13 @@ pub fn remove_hover(mut items: Query<&mut Transform, With<RevertScale>>, time: R
     }
 }
 
-pub fn handle_menu_interactions(
+pub fn handle_settings_interactions(
     mut app_exit_events: EventWriter<AppExit>,
     mut app_state: ResMut<State<GameState>>,
-    query: Query<(&Interaction, &MenuItem, Entity)>,
+    query: Query<(&Interaction, &SettingsItem, Entity)>,
     focused: Query<(
         &Interaction,
-        &MenuItem,
+        &SettingsItem,
         Entity,
         With<Scale>,
         Without<KeyFocus>,
@@ -109,37 +77,37 @@ pub fn handle_menu_interactions(
 ) {
     query.for_each(|(interaction, item, entity)| match interaction {
         Interaction::Clicked => match item {
-            MenuItem::Play => {
+            SettingsItem::Resume => {
                 app_state
                     .push(GameState::GameLoop)
                     .map_err(|err| error!("Failed to start game: {}", err))
                     .unwrap();
             }
-            MenuItem::Controls => {
+            SettingsItem::MainMenu => {
                 app_state
-                    .push(GameState::Settings)
+                    .push(GameState::MainMenu)
                     .map_err(|err| error!("Failed to open settings: {}", err))
                     .unwrap();
             }
-            MenuItem::Exit => app_exit_events.send(AppExit),
+            SettingsItem::Quit => app_exit_events.send(AppExit),
         },
         // Handle Hover and remove hover events
         Interaction::Hovered => {
             // do nothing
             match item {
-                MenuItem::Play => {
+                SettingsItem::Resume => {
                     // do nothing for now
                     commands.entity(entity).remove::<RevertScale>();
                     commands.entity(entity).remove::<KeyFocus>();
                     commands.entity(entity).insert(Scale);
                 }
-                MenuItem::Controls => {
+                SettingsItem::MainMenu => {
                     // do nothing for now
                     commands.entity(entity).remove::<RevertScale>();
                     commands.entity(entity).remove::<KeyFocus>();
                     commands.entity(entity).insert(Scale);
                 }
-                MenuItem::Exit => {
+                SettingsItem::Quit => {
                     // do nothing for now
                     commands.entity(entity).remove::<RevertScale>();
                     commands.entity(entity).remove::<KeyFocus>();
@@ -161,17 +129,17 @@ pub fn handle_menu_interactions(
             }
             _default => {
                 match item {
-                    MenuItem::Play => {
+                    SettingsItem::Resume => {
                         // do nothing for now
                         commands.entity(entity).remove::<Scale>();
                         commands.entity(entity).insert(RevertScale);
                     }
-                    MenuItem::Controls => {
+                    SettingsItem::MainMenu => {
                         // do nothing for now
                         commands.entity(entity).remove::<Scale>();
                         commands.entity(entity).insert(RevertScale);
                     }
-                    MenuItem::Exit => {
+                    SettingsItem::Quit => {
                         // do nothing for now
                         commands.entity(entity).remove::<Scale>();
                         commands.entity(entity).insert(RevertScale);
@@ -182,12 +150,12 @@ pub fn handle_menu_interactions(
     )
 }
 
-pub fn navigate_with_key(
+pub fn navigate_settings_with_keys(
     mut app_exit_events: EventWriter<AppExit>,
     mut app_state: ResMut<State<GameState>>,
     mut key_event: EventReader<KeyboardInput>,
-    buttons: Query<(&MenuItem, Entity, &Grid)>,
-    focused: Query<(&MenuItem, &Grid, With<KeyFocus>)>,
+    buttons: Query<(&SettingsItem, Entity, &Grid)>,
+    focused: Query<(&SettingsItem, &Grid, With<KeyFocus>)>,
     mut commands: Commands,
 ) {
     for key in key_event.iter() {
@@ -264,19 +232,19 @@ pub fn navigate_with_key(
                     }
                     KeyCode::Return | KeyCode::Space => {
                         focused.for_each(|(item, _grid, _key)| match item {
-                            MenuItem::Play => {
+                            SettingsItem::Resume => {
                                 app_state
                                     .push(GameState::GameLoop)
                                     .map_err(|err| error!("Failed to start game: {}", err))
                                     .unwrap();
                             }
-                            MenuItem::Controls => {
+                            SettingsItem::MainMenu => {
                                 app_state
-                                    .push(GameState::Settings)
+                                    .push(GameState::MainMenu)
                                     .map_err(|err| error!("Failed to open settings: {}", err))
                                     .unwrap();
                             }
-                            MenuItem::Exit => app_exit_events.send(AppExit),
+                            SettingsItem::Quit => app_exit_events.send(AppExit),
                         })
                     }
                     _default => {
@@ -291,17 +259,17 @@ pub fn navigate_with_key(
     }
 }
 
-pub fn spawn_main_button(
+pub fn spawn_setting_button(
     parent: &mut ChildBuilder,
     font: Handle<Font>,
-    menu_item: MenuItem,
+    setting_item: SettingsItem,
     y_val: i32,
 ) {
     parent
         .spawn_bundle(ButtonBundle {
             style: Style {
                 size: Size {
-                    width: Val::Percent(10.0),
+                    width: Val::Percent(15.0),
                     height: Val::Px(30.0),
                 },
 
@@ -312,16 +280,16 @@ pub fn spawn_main_button(
             },
             ..default()
         })
-        .insert(menu_item)
+        .insert(setting_item)
         .insert(Grid { x: 0, y: y_val })
         .with_children(|parent| {
             parent.spawn_bundle(TextBundle {
                 style: Style::default(),
                 text: Text::from_section(
-                    match menu_item {
-                        MenuItem::Play => "Play",
-                        MenuItem::Controls => "Controls",
-                        MenuItem::Exit => "Exit",
+                    match setting_item {
+                        SettingsItem::Resume => "Resume",
+                        SettingsItem::MainMenu => "Main Menu",
+                        SettingsItem::Quit => "Quit",
                     },
                     TextStyle {
                         font: font.clone(),
@@ -334,7 +302,7 @@ pub fn spawn_main_button(
         });
 }
 
-pub fn main_menu(
+pub fn init_settings(
     mut commands: Commands,
     asset_server: ResMut<AssetServer>,
     mut clear_color: ResMut<ClearColor>,
@@ -342,6 +310,8 @@ pub fn main_menu(
     let font: Handle<Font> = asset_server.load("fonts/MajorMonoDisplay-Regular.ttf");
 
     clear_color.0 = Color::MIDNIGHT_BLUE;
+
+    //let variants = mem::variant_count::<SettingsItem>();
 
     commands
         .spawn_bundle(NodeBundle {
@@ -356,25 +326,25 @@ pub fn main_menu(
                 justify_content: JustifyContent::SpaceEvenly,
                 ..Style::default()
             },
-            color: UiColor(Color::MIDNIGHT_BLUE),
+            color: UiColor(Color::OLIVE),
             ..NodeBundle::default()
         })
-        .insert(MainMenu)
+        .insert(SettingsMenu)
         .with_children(|mut parent| {
             parent.spawn_bundle(TextBundle {
                 text: Text::from_section(
-                    "Who Cares",
+                    "Settings (More Coming Soon..)",
                     TextStyle {
                         font: font.clone(),
-                        font_size: 50.0,
+                        font_size: 35.0,
                         color: Color::WHITE,
                     },
                 ),
                 ..TextBundle::default()
             });
 
-            spawn_main_button(&mut parent, font.clone(), MenuItem::Play, 0);
-            spawn_main_button(&mut parent, font.clone(), MenuItem::Controls, 1);
-            spawn_main_button(&mut parent, font.clone(), MenuItem::Exit, 2);
+            spawn_setting_button(&mut parent, font.clone(), SettingsItem::Resume, 0);
+            spawn_setting_button(&mut parent, font.clone(), SettingsItem::MainMenu, 1);
+            spawn_setting_button(&mut parent, font.clone(), SettingsItem::Quit, 2);
         });
 }
