@@ -43,7 +43,7 @@ impl Plugin for MainMenuPlugin {
                 SystemSet::on_update(GameState::MainMenu).with_system(handle_menu_interactions),
             )
             .add_system_set(SystemSet::on_update(GameState::MainMenu).with_system(hover_menu))
-            .add_system(remove_hover)
+            .add_system_set(SystemSet::on_update(GameState::MainMenu).with_system(remove_hover))
             .add_system_set(
                 SystemSet::on_update(GameState::MainMenu).with_system(navigate_with_key),
             )
@@ -80,18 +80,6 @@ pub fn remove_hover(mut items: Query<&mut Transform, With<RevertScale>>, time: R
         //transform.scale = Vec3::new(1.0, 1.0, 1.0);
     }
 }
-
-/* pub fn get_components_for_entity<'a>(
-    entity: &Entity,
-    archetypes: &'a Archetypes,
-) -> Option<impl Iterator<Item = ComponentId> + 'a> {
-    for archetype in archetypes.iter() {
-        if archetype.entities().contains(entity) {
-            return Some(archetype.components());
-        }
-    }
-    None
-} */
 
 pub fn handle_menu_interactions(
     mut app_exit_events: EventWriter<AppExit>,
