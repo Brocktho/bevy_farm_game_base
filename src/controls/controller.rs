@@ -2,26 +2,6 @@ use bevy::prelude::*;
 
 pub struct MyGamepad(Gamepad);
 
-pub struct Bullet {
-    x: f32, // all in m
-    y: f32,
-    z: f32,
-    velocity: Velocity,     // dx/dt m/s
-    acceleration: Velocity, //
-}
-
-pub struct Velocity {
-    x: f32,
-    y: f32,
-    z: f32,
-}
-
-pub struct Acceleration {
-    x: f32,
-    y: f32,
-    z: f32,
-}
-
 pub fn gamepad_connections(
     mut commands: Commands,
     the_gamepad: Option<Res<MyGamepad>>,
@@ -58,16 +38,4 @@ pub fn gamepad_connections(
             },
         }
     }
-}
-
-pub fn create_projectile(
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
-) {
-    commands.spawn_bundle(PbrBundle {
-        mesh: meshes.add(Mesh::from(shape::Capsule { ..default() })),
-        material: materials.add(Color::rgb(0.8, 0.7, 0.6).into()),
-        ..default()
-    });
 }
