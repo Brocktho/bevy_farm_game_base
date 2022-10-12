@@ -26,6 +26,10 @@ Farm Structures:
 🐝 (Bee box permanent structure for sub area)
 🎇 ( sprinkler boost growth time )
 🌱 ( seed mill turn ground crops into seeds ) 1 crop -> 2 seeds;
+🟫 ( Grid unhighlighted )
+🟨 ( Grid highlighted )
+🟩 ( Grid Seed Planted )
+
 
 Temporary Buffs:
 🐝 
