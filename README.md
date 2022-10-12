@@ -1,28 +1,28 @@
 Crop Hunters: 
 
-    - Ground Crops:
-        🪲 
-        🐜
+    * Ground Crops:
+        * 🪲 
+        * 🐜
 
-    - Trees:
-        🦫 
-        🦇 (?) possibly
+    * Trees:
+        * 🦫 
+        * 🦇 (?) possibly
 
 
 Player Hunters:
 
-    - Melee Hunters:
-        🐺
-        🦀
-        🦊
-        🧟
+    * Melee Hunters:
+        * 🐺
+        * 🦀
+        * 🦊
+        * 🧟
 
-    - Ranged Hunters:
-        🦂
+    * Ranged Hunters:
+        * 🦂
 
-    - Debuff Hunter:
-        🦅 (?) possibly structure debuffer
-        🦟 (?) possibly crop debuffer
+    * Debuff Hunter:
+        * 🦅 **(?)** possibly structure debuffer
+        * 🦟 **(?)** possibly crop debuffer
 
 
 Farm Structures:
