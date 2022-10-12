@@ -1,11 +1,16 @@
 Crop Hunters: 
-🪲 
-🦫 
-🐜 
-🦇 (?) possibly
+
+    - Ground Crops:
+        🪲 
+        🐜
+
+    - Trees:
+        🦫 
+        🦇 (?) possibly
 
 
 Player Hunters:
+
     - Melee Hunters:
         🐺
         🦀
@@ -21,21 +26,21 @@ Player Hunters:
 
 
 Farm Structures:
-🏠 (homestead) // outside of game, visual representation of progress
-🪵 (wall/fence)
-🐝 (Bee box permanent structure for sub area)
-🎇 ( sprinkler boost growth time )
-🌱 ( seed mill turn ground crops into seeds ) 1 crop -> 2 seeds;
-🟫 ( Grid unhighlighted )
-🟨 ( Grid highlighted )
-🟩 ( Grid Seed Planted )
 
+    🏠 (homestead) // outside of game, visual representation of progress
+    🪵 (wall/fence)
+    🐝 (Bee box permanent structure for sub area)
+    🎇 ( sprinkler boost growth time )
+    🌱 ( seed mill turn ground crops into seeds ) 1 crop -> 2 seeds;
+    🟫 ( Grid unhighlighted )
+    🟨 ( Grid highlighted )
+    🟩 ( Grid Seed Planted )
 
 Temporary Buffs:
-🐝 
-🐞 
 
-bug spray, no good emoji
+    🐝 
+    🐞 
+    bug spray, no good emoji
 
 Crops:
 
@@ -128,6 +133,7 @@ pay to win: weapon, character, farmhouse upgrade, cosmetic main menu upgrades
 just receive buff: seeds, money, temp boost, 50% perm upgrade compared to pay to win / separate buff not pay to win
 
 Globals Terms:
+
     - Cycles = full day night, takes 2 minutes;
     - Backpack = 6 slots; -> 8 slots; -> 10 slots;
 
