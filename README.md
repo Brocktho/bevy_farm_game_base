@@ -59,7 +59,7 @@ Crops:
       * Boost Effect: 1 max hp heal; 
       * Market Price: 2 credit; 
       * Upkeep: Set and forget; 
-      * Boostable: 💧, 💩, 🐞;
+      * Boostable: 💧 💩 🐞;
         
     * 🍓  
       * TTG: 2 cycle;
@@ -67,7 +67,7 @@ Crops:
       * Boost Effect: *(?)*;
       * Market Price: *(?)*;
       * Upkeep: *(?)*;
-      * Boostable: 💩, 🐝;
+      * Boostable: 💩 🐝;
 
     * 🍉  
       * TTG: *(?)*;
@@ -75,7 +75,7 @@ Crops:
       * Boost Effect:*(?)*; 
       * Market Price:*(?)*; 
       * Upkeep:*(?)*;
-      * Boostable: 💩, 🐞, 🐝;
+      * Boostable: 💩 🐞 🐝;
         
     * 🧇 (wheat) 
       * TTG: 1 cycle;
@@ -83,7 +83,7 @@ Crops:
       * Boost Effect: 1 hp heal; 
       * Market Price: 1 credit; 
       * Upkeep: Set and forget;
-      * Boostable: 💧, 💩, 🐞;
+      * Boostable: 💧 💩 🐞;
         
     * 🫑  
       * TTG: 1.5 cycle; 
@@ -91,16 +91,16 @@ Crops:
       * Boost Effect: dmg boost; 
       * Market Price: 3 credit; 
       * Upkeep: 💧 .4 cycles; 
-      * Boostable: 🐞, 🐝, 💩
+      * Boostable: 🐞 🐝 💩
 
   * Trees:
     * 🍎  
       * TTG: 5 cycle (harvest every 2);
       * Harvest Amount: 4;
       * Boost Effect: Harvest time boost; 50% *(?)* .25 cycles; **loooking for like 20-30 seconds**
-      * Market Price: 1 credit; Boostable: 💧, 🐞, 🐝 *(?)*
+      * Market Price: 1 credit;
       * Upkeep: 💧 1 cycle; 💧 + 🐝 3 cycles; 
-      * Boostable: 💩, 🐞, 🐝;
+      * Boostable: 💩 🐞 🐝;
 
     * 🥑  
       * TTG: 3 cycle (harvest every 3);
@@ -108,7 +108,7 @@ Crops:
       * Boost Effect: temp hp +1 per fruit;
       * Market Price: 2; 
       * Upkeep: 💧 + 💩 .5 cycle; 1.5 cycle upkeep after;
-      * Boostable: 🐞, 🐝;
+      * Boostable: 🐞 🐝;
         
     * 🍌  
       * TTG: 4 cycle (harvest every 3); 
@@ -120,11 +120,12 @@ Crops:
 
 Care Packages: 
   * Overview: 
-  1. just receive buff;
-  2. alternate pay to win;
     * upgrade = permanent;
     * boon = temporary;
-    
+
+1. just receive buff;
+2. alternate pay to win;
+
 pay to win: 
   * weapon;
   * character; 
