@@ -20,9 +20,9 @@ Player Hunters:
     * 🦟 *(?)* possibly crop debuffer
 
 Farm Structures:
-  * 🏠 (homestead) // outside of game, visual representation of progress
-  * 🪵 (wall/fence)
-  * 🐝 (🐝 box permanent structure for sub area)
+  * 🏠 ( homestead ) **outside of game, _visual representation of progress_**
+  * 🪵 ( wall/fence )
+  * 🐝 ( 🐝 box permanent structure for sub area )
   * 🎇 ( sprinkler boost growth time )
   * 🌱 ( seed mill turn ground crops into seeds ) 1 crop -> 2 seeds;
   * 🟫 ( Grid unhighlighted )
