@@ -28,12 +28,12 @@ impl Plugin for SettingsPlugin {
             .add_system_set(
                 SystemSet::on_update(GameState::Settings).with_system(navigate_settings_with_keys),
             )
-            .add_system_set(SystemSet::on_pause(GameState::Settings).with_system(remove_menu))
-            .add_system_set(SystemSet::on_exit(GameState::Settings).with_system(remove_menu));
+            .add_system_set(SystemSet::on_pause(GameState::Settings).with_system(remove_settings))
+            .add_system_set(SystemSet::on_exit(GameState::Settings).with_system(remove_settings));
     }
 }
 
-pub fn remove_menu(mut commands: Commands, query: Query<Entity, With<SettingsMenu>>) {
+pub fn remove_settings(mut commands: Commands, query: Query<Entity, With<SettingsMenu>>) {
     for entity in query.iter() {
         commands.entity(entity).despawn_recursive();
     }

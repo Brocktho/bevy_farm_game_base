@@ -111,7 +111,7 @@ pub fn initialize_game(
     server: Res<AssetServer>,
     players: Query<Entity, With<Player>>,
 ) {
-    let handle: Handle<Image> = server.load("images/FigTronBase-1.png");
+    let handle: Handle<Image> = server.load("images/Bunny.png");
     if players.is_empty() {
         commands
             .spawn_bundle(SpriteBundle {
@@ -152,7 +152,7 @@ pub fn spawn_enemies(
             enemy_timer.timer.tick(time.delta());
             if enemy_timer.timer.finished() {
                 let player = player_query.iter().next().unwrap();
-                let enemy_sprite = server.load("images/FigTronBase-1.png");
+                let enemy_sprite = server.load("images/Zombie.png");
                 let mut rng = rand::thread_rng();
                 let x_off: f32 = (rng.gen::<f32>() * DISTANCE) + DISTANCE;
                 let y_off: f32 = (rng.gen::<f32>() * DISTANCE) + DISTANCE;
