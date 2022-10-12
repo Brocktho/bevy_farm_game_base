@@ -10,16 +10,16 @@ Crop Hunters:
 
 
 Player Hunters:
-    * Melee Hunters:
-        * 🐺
-        * 🦀
-        * 🦊
-        * 🧟
-    * Ranged Hunters:
-        * 🦂
-    * Debuff Hunter:
-        * 🦅 **(?)** possibly structure debuffer
-        * 🦟 **(?)** possibly crop debuffer
+  * Melee Hunters:
+    * 🐺
+    * 🦀
+    * 🦊
+    * 🧟
+  * Ranged Hunters:
+    * 🦂
+  * Debuff Hunter:
+    * 🦅 **(?)** possibly structure debuffer
+    * 🦟 **(?)** possibly crop debuffer
 Farm Structures:
 
     🏠 (homestead) // outside of game, visual representation of progress
