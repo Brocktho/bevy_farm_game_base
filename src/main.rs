@@ -15,10 +15,6 @@ fn main() {
         .add_plugin(setup::settings::SettingsPlugin)
         .add_plugin(WorldInspectorPlugin::new())
         .add_plugin(InspectorPlugin::<globals::character_modifiers::PlayerData>::new())
-        .add_system_set(
-            SystemSet::on_update(states::GameState::GameLoop)
-                .with_system(globals::character_modifiers::update_player_values),
-        )
         .add_system(controls::controller::gamepad_connections)
         .add_plugin(HanabiPlugin)
         .add_startup_system(setup::camera::ui_camera)

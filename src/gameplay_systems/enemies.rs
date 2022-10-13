@@ -1,4 +1,4 @@
-use crate::globals::character_modifiers::{Enemy, Player};
+use crate::globals::character_modifiers::{Behaviors, Enemy, Player};
 use crate::globals::scene_modifiers::EnemyTimer;
 use bevy::prelude::*;
 use rand::Rng;
@@ -54,8 +54,8 @@ pub fn spawn_enemies(
                                     y_off + quadrant_offset.y,
                                     player.location.z,
                                 ),
-                                scale: Vec3::new(0.15, 0.15, 0.15),
-                                rotation: Quat::from_rotation_z(150.0),
+                                scale: Vec3::new(0.5, 0.5, 0.5),
+                                rotation: Quat::from_rotation_z(360.0),
                                 ..default()
                             },
                             ..default()
@@ -66,6 +66,7 @@ pub fn spawn_enemies(
                             current_speed: Vec3::splat(0.0),
                             x_direction: false,
                             y_direction: false,
+                            behavior: Behaviors::Smooth,
                         });
                 }
             }
