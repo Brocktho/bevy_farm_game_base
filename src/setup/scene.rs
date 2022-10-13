@@ -3,9 +3,10 @@ use crate::controls::player::move_character;
 use crate::gameplay_systems::enemies::spawn_enemies;
 use crate::globals::character_modifiers::*;
 use crate::globals::scene_modifiers::*;
+use crate::globals::ui_modifiers::Inventory;
+use crate::globals::ui_modifiers::UiGrid;
 use crate::states::GameState;
 use bevy::prelude::*;
-use bevy_inspector_egui::RegisterInspectable;
 use rand::Rng;
 use std::time::Duration;
 pub struct GameScenePlugin;
@@ -14,13 +15,7 @@ impl Plugin for GameScenePlugin {
     fn build(&self, app: &mut App) {
         app.add_system_set(SystemSet::on_enter(GameState::GameLoop).with_system(initialize_game))
             .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_character))
-            .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_camera))
-            .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_enemies))
-            .add_system_set(
-                SystemSet::on_update(GameState::GameLoop)
-                    .after(initialize_game)
-                    .with_system(spawn_enemies),
-            );
+            .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_camera));
     }
 }
 
@@ -52,68 +47,13 @@ pub fn generate_timers(
     }
 }
 
-pub fn move_enemies(
-    players: Query<&Player>,
-    mut enemies: Query<(&mut Transform, &mut Enemy, With<Enemy>)>,
-    time: Res<Time>,
-) {
-    if !players.is_empty() {
-        let player = players.iter().next().unwrap();
-        let target = player.location;
-        enemies
-            .iter_mut()
-            .for_each(|(mut transform, mut stats, _search)| {
-                let dx = target.x - transform.translation.x;
-                let dy = target.y - transform.translation.y;
-                if dx > 0.0 {
-                    if !stats.x_direction {
-                        stats.current_speed.x = 0.0;
-                    }
-                    if stats.current_speed.x < stats.max_speed {
-                        stats.current_speed.x += stats.acceleration * time.delta_seconds();
-                    }
-                    transform.translation.x += stats.current_speed.x * time.delta_seconds();
-                    stats.x_direction = true;
-                } else if dx < 0.0 {
-                    if stats.x_direction {
-                        stats.current_speed.x = 0.0;
-                    }
-                    if stats.current_speed.x < stats.max_speed {
-                        stats.current_speed.x += stats.acceleration * time.delta_seconds();
-                    }
-                    transform.translation.x -= stats.current_speed.x * time.delta_seconds();
-                    stats.x_direction = false;
-                }
-
-                if dy > 0.0 {
-                    if !stats.y_direction {
-                        stats.current_speed.y = 0.0;
-                    }
-                    if stats.current_speed.y < stats.max_speed {
-                        stats.current_speed.y += stats.acceleration * time.delta_seconds();
-                    }
-                    transform.translation.y += stats.current_speed.y * time.delta_seconds();
-                    stats.y_direction = true;
-                } else if dy < 0.0 {
-                    if stats.y_direction {
-                        stats.current_speed.y = 0.0;
-                    }
-                    if stats.current_speed.y < stats.max_speed {
-                        stats.current_speed.y += stats.acceleration * time.delta_seconds();
-                    }
-                    transform.translation.y -= stats.current_speed.y * time.delta_seconds();
-                    stats.y_direction = false;
-                }
-            });
-    }
-}
-
 pub fn initialize_game(
     mut commands: Commands,
     server: Res<AssetServer>,
     players: Query<Entity, With<Player>>,
     home_grid: Query<Entity, &FarmLand>,
     background_grid: Query<&Background>,
+    inventory_grid: Query<&UiGrid>,
 ) {
     let handle: Handle<Image> = server.load("images/Bunny.png");
     if players.is_empty() {
@@ -147,6 +87,10 @@ pub fn initialize_game(
             .with_children(|parent| {
                 for i in 0..16 {
                     for j in 0..16 {
+                        let mut name_string = String::from("Farm Grid ");
+                        name_string += &(i.to_string());
+                        name_string += " ";
+                        name_string += &(j.to_string());
                         parent
                             .spawn_bundle(SpriteBundle {
                                 texture: base.clone(),
@@ -161,7 +105,8 @@ pub fn initialize_game(
                                 },
                                 ..default()
                             })
-                            .insert(GameGrid { x: j, y: i });
+                            .insert(GameGrid { x: j, y: i })
+                            .insert(Name::new(name_string));
                     }
                 }
             });
@@ -179,26 +124,80 @@ pub fn initialize_game(
                 for i in 0..30 {
                     for j in 0..30 {
                         let val = rand.gen_range(0..2);
-                        parent.spawn_bundle(SpriteBundle {
-                            texture: if val == 2 {
-                                grass1.clone()
-                            } else if val == 1 {
-                                grass2.clone()
-                            } else {
-                                grass3.clone()
-                            },
-                            transform: Transform {
-                                translation: Vec3::new(
-                                    28.0 * j as f32 - 280.0,
-                                    28.0 * i as f32 - 280.0,
-                                    0.01,
-                                ),
+                        let mut name_string = String::from("Background ");
+                        name_string += &(i.to_string());
+                        name_string += " ";
+                        name_string += &(j.to_string());
+                        parent
+                            .spawn_bundle(SpriteBundle {
+                                texture: if val == 2 {
+                                    grass1.clone()
+                                } else if val == 1 {
+                                    grass2.clone()
+                                } else {
+                                    grass3.clone()
+                                },
+                                transform: Transform {
+                                    translation: Vec3::new(
+                                        28.0 * j as f32 - 280.0,
+                                        28.0 * i as f32 - 280.0,
+                                        0.01,
+                                    ),
+                                    ..default()
+                                },
                                 ..default()
-                            },
-                            ..default()
-                        });
+                            })
+                            .insert(Name::new(name_string));
                     }
                 }
             });
     }
+    if inventory_grid.is_empty() {
+        let inventory_slot = server.load("images/InventorySlot.png");
+        commands
+            .spawn_bundle(NodeBundle {
+                style: Style {
+                    justify_content: JustifyContent::Center,
+                    flex_direction: FlexDirection::Row,
+
+                    size: Size {
+                        width: Val::Percent(100.0),
+                        height: Val::Percent(7.5),
+                        ..default()
+                    },
+
+                    ..default()
+                },
+                color: UiColor(Color::rgba(0.0, 0.0, 0.0, 0.0)),
+                ..default()
+            })
+            .insert(Inventory)
+            .insert(Name::new("Inventory Parent"))
+            .add_children(|parent| {
+                for i in 1..=6 {
+                    spawn_inventory_slot(parent, inventory_slot.clone(), i)
+                }
+            });
+    }
+}
+
+pub fn spawn_inventory_slot(parent: &mut ChildBuilder, texture: Handle<Image>, grid_x: i32) {
+    let mut name_string = String::from("Inventory ");
+    name_string += &grid_x.to_string();
+    parent
+        .spawn_bundle(ImageBundle {
+            style: Style {
+                size: Size {
+                    width: Val::Percent(9.0),
+                    height: Val::Percent(100.0),
+                    ..default()
+                },
+                aspect_ratio: Some(1.0),
+                ..default()
+            },
+            image: UiImage(texture),
+            ..default()
+        })
+        .insert(UiGrid { x: grid_x, y: 0 })
+        .insert(Name::new(name_string));
 }
