@@ -126,6 +126,36 @@ Care Packages:
 1. just receive buff;
 2. alternate pay to win;
 
+clocks: 
+  * Day: ☀️
+  * Night: 🌙
+  * Times: 
+    * 🕐
+    * 🕜
+    * 🕑
+    * 🕝
+    * 🕒
+    * 🕞
+    * 🕓
+    * 🕟
+    * 🕔
+    * 🕠
+    * 🕕
+    * 🕡
+    * 🕖
+    * 🕢
+    * 🕗
+    * 🕣
+    * 🕘
+    * 🕤
+    * 🕙
+    * 🕥
+    * 🕚
+    * 🕦
+    * 🕛
+    * 🕧
+
+
 pay to win: 
   * weapon;
   * character; 

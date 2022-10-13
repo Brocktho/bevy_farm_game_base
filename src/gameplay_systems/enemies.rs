@@ -50,7 +50,7 @@ pub fn spawn_enemies(
                         2 => crab_sprite.clone(),
                         3 => fox_sprite.clone(),
                         4 => wolf_sprite.clone(),
-                        default => wolf_sprite.clone(),
+                        _default => wolf_sprite.clone(),
                     };
 
                     let quadrant_offset: Vec2 = match rng.gen_range(0..20) {

@@ -1,10 +1,8 @@
 use crate::controls::camera::move_camera;
 use crate::controls::player::move_character;
-use crate::gameplay_systems::enemies::spawn_enemies;
 use crate::globals::character_modifiers::*;
 use crate::globals::scene_modifiers::*;
-use crate::globals::ui_modifiers::Inventory;
-use crate::globals::ui_modifiers::UiGrid;
+use crate::globals::ui_modifiers::{GameUi, Inventory, UiGrid};
 use crate::states::GameState;
 use bevy::prelude::*;
 use rand::Rng;
@@ -19,41 +17,13 @@ impl Plugin for GameScenePlugin {
     }
 }
 
-pub fn find_action_square(
-    mut active_square: Query<(&mut Handle<Image>, With<GameGrid>)>,
-    mut squares: Query<(&Transform, &mut Handle<Image>, With<GameGrid>)>,
-    player: Query<&Player>,
-    asset_server: Res<AssetServer>,
-) {
-    if !player.is_empty() {
-        let focus_tile: Handle<Image> = asset_server.load("images/Highlight.png");
-        let plain_tile: Handle<Image> = asset_server.load("images/Dirt.png");
-        let player_found = player.iter().next().unwrap();
-        let player_pos = player_found.location;
-    }
-}
-
-pub fn generate_timers(
-    mut commands: Commands,
-    cycle_timer: Query<&CycleTimer>,
-    day_timer: Query<&DayTimer>,
-    night_timer: Query<&NightTimer>,
-    enemy_timer: Query<&EnemyTimer>,
-) {
-    if cycle_timer.is_empty() {
-        commands.insert_resource(CycleTimer {
-            timer: Timer::from_seconds(120.0, true),
-        });
-    }
-}
-
 pub fn initialize_game(
     mut commands: Commands,
     server: Res<AssetServer>,
     players: Query<Entity, With<Player>>,
     home_grid: Query<Entity, &FarmLand>,
     background_grid: Query<&Background>,
-    inventory_grid: Query<&UiGrid>,
+    game_ui: Query<&GameUi>,
 ) {
     let handle: Handle<Image> = server.load("images/Bunny.png");
     if players.is_empty() {
@@ -152,31 +122,139 @@ pub fn initialize_game(
                 }
             });
     }
-    if inventory_grid.is_empty() {
+    if game_ui.is_empty() {
         let inventory_slot = server.load("images/InventorySlot.png");
+        let daylight: Handle<Image> = server.load("images/Day.png");
+        let start: Handle<Image> = server.load("images/1200.png");
         commands
             .spawn_bundle(NodeBundle {
                 style: Style {
-                    justify_content: JustifyContent::Center,
-                    flex_direction: FlexDirection::Row,
-
+                    justify_content: JustifyContent::SpaceBetween,
+                    flex_direction: FlexDirection::ColumnReverse,
                     size: Size {
                         width: Val::Percent(100.0),
-                        height: Val::Percent(7.5),
+                        height: Val::Percent(100.0),
                         ..default()
                     },
-
                     ..default()
                 },
-                color: UiColor(Color::rgba(0.0, 0.0, 0.0, 0.0)),
+                color: UiColor(Color::rgba(0., 0., 0., 0.)),
                 ..default()
             })
-            .insert(Inventory)
-            .insert(Name::new("Inventory Parent"))
+            .insert(GameUi)
+            .insert(Name::new("Ui Parent"))
             .add_children(|parent| {
-                for i in 1..=6 {
-                    spawn_inventory_slot(parent, inventory_slot.clone(), i)
-                }
+                parent
+                    .spawn_bundle(NodeBundle {
+                        style: Style {
+                            size: Size {
+                                width: Val::Percent(100.0),
+                                height: Val::Percent(10.0),
+                            },
+                            flex_direction: FlexDirection::Row,
+                            justify_content: JustifyContent::FlexStart,
+
+                            ..default()
+                        },
+                        color: UiColor(Color::rgba(0., 0., 0., 0.)),
+                        ..default()
+                    })
+                    .insert(Name::new("Time Row"))
+                    .with_children(|timer_row| {
+                        timer_row
+                            .spawn_bundle(NodeBundle {
+                                style: Style {
+                                    size: Size {
+                                        width: Val::Percent(20.0),
+                                        height: Val::Percent(100.0),
+                                    },
+                                    flex_direction: FlexDirection::Row,
+                                    padding: UiRect {
+                                        left: Val::Px(8.0),
+                                        top: Val::Px(8.0),
+                                        right: Val::Px(0.0),
+                                        bottom: Val::Px(0.0),
+                                    },
+                                    justify_content: JustifyContent::Center,
+                                    align_items: AlignItems::Center,
+
+                                    ..default()
+                                },
+                                color: UiColor(Color::rgba(0., 0., 0., 0.)),
+                                ..default()
+                            })
+                            .insert(Name::new("Top Left Block"))
+                            .with_children(|time_block| {
+                                time_block.spawn_bundle(ImageBundle {
+                                    style: Style {
+                                        size: Size {
+                                            width: Val::Percent(50.0),
+                                            height: Val::Percent(100.0),
+                                        },
+                                        margin: UiRect {
+                                            right: Val::Px(8.0),
+                                            left: Val::Px(0.0),
+                                            bottom: Val::Px(0.0),
+                                            top: Val::Px(0.0),
+                                        },
+                                        ..default()
+                                    },
+                                    image: UiImage(start.clone()),
+                                    ..default()
+                                });
+                                time_block.spawn_bundle(ImageBundle {
+                                    style: Style {
+                                        size: Size {
+                                            width: Val::Percent(45.0),
+                                            height: Val::Percent(100.0),
+                                        },
+                                        ..default()
+                                    },
+                                    image: UiImage(daylight.clone()),
+                                    ..default()
+                                });
+                            });
+                    });
+                parent
+                    .spawn_bundle(NodeBundle {
+                        style: Style {
+                            justify_content: JustifyContent::Center,
+                            flex_direction: FlexDirection::Row,
+                            size: Size {
+                                width: Val::Percent(100.0),
+                                height: Val::Percent(10.0),
+                                ..default()
+                            },
+                            ..default()
+                        },
+                        color: UiColor(Color::rgba(0., 0., 0., 0.)),
+                        ..default()
+                    })
+                    .insert(Name::new("Inventory Row"))
+                    .with_children(|invent_row| {
+                        invent_row
+                            .spawn_bundle(NodeBundle {
+                                style: Style {
+                                    justify_content: JustifyContent::SpaceEvenly,
+                                    flex_direction: FlexDirection::Row,
+                                    size: Size {
+                                        width: Val::Percent(60.0),
+                                        height: Val::Percent(100.0),
+                                        ..default()
+                                    },
+                                    ..default()
+                                },
+                                color: UiColor(Color::rgba(0., 0., 0., 0.)),
+                                ..default()
+                            })
+                            .insert(Name::new("Inventory Block"))
+                            .insert(Inventory)
+                            .with_children(|invent_block| {
+                                for i in 1..=6 {
+                                    spawn_inventory_slot(invent_block, inventory_slot.clone(), i);
+                                }
+                            });
+                    });
             });
     }
 }

@@ -17,3 +17,6 @@ pub struct KeyFocus;
 
 #[derive(Component)]
 pub struct Inventory;
+
+#[derive(Component)]
+pub struct GameUi;
