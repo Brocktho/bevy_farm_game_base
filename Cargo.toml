@@ -10,6 +10,7 @@ bevy = { version = "0.8.1", features = ["dynamic"] }
 bevy_hanabi = "0.3"
 rand = "0.8"
 bevy-inspector-egui = "0.13"
+libm = "0.2.5"
 
 # Enable high optimizations for dependencies (incl. Bevy), but not for our code:
 [profile.dev.package."*"]

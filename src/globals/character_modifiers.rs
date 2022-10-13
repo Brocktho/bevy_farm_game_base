@@ -69,10 +69,12 @@ pub fn update_player_values(data: Res<PlayerData>, mut query: Query<&mut Player>
 pub struct Enemy {
     pub max_speed: f32,
     pub acceleration: f32,
-    pub current_speed: Vec3,
+    pub current_speed: f32,
     pub x_direction: bool, // true was last traveling in positive x direction
     pub y_direction: bool, // true was last traveling in positive y direction
     pub behavior: Behaviors,
+    pub charge_delay: f32, // not really satisfied with this, just gonna say 0.0 as default
+    pub cooldown: f32,     // same as charge_delay
 }
 
 impl Default for Enemy {
@@ -80,12 +82,30 @@ impl Default for Enemy {
         Enemy {
             max_speed: 20.0,
             acceleration: 15.0,
-            current_speed: Vec3::splat(0.0),
+            current_speed: 0.0,
             x_direction: false,
             y_direction: false,
             behavior: Behaviors::Smooth,
+            charge_delay: 0.0,
+            cooldown: 0.0,
         }
     }
+}
+
+#[derive(Component)]
+pub struct Bursting {
+    pub angle: f32,
+}
+
+#[derive(Component)]
+pub struct Cooldown {
+    pub timer: Timer,
+}
+
+#[derive(Component)]
+pub struct Charging {
+    pub angle: f32,
+    pub charge_delay: Timer,
 }
 
 #[derive(Inspectable, Copy, Clone)]
@@ -102,6 +122,10 @@ pub struct EnemyData {
     #[inspectable(min = 10.0, max = 99999.0)]
     pub acceleration: f32,
     pub behavior: Behaviors,
+    #[inspectable(min = 0.1, max = 99999.0)]
+    pub charge_delay: f32,
+    #[inspectable(min = 0.1, max = 99999.0)]
+    pub cooldown: f32,
 }
 
 impl Default for EnemyData {
@@ -110,6 +134,8 @@ impl Default for EnemyData {
             max_speed: 20.0,
             acceleration: 50.0,
             behavior: Behaviors::Smooth,
+            charge_delay: 0.5,
+            cooldown: 0.5,
         }
     }
 }
@@ -122,6 +148,8 @@ pub fn update_enemy_values(data: Res<EnemyData>, mut query: Query<&mut Enemy>) {
         enemy.acceleration = data.acceleration;
         enemy.max_speed = data.max_speed;
         enemy.behavior = data.behavior;
+        enemy.charge_delay = data.charge_delay;
+        enemy.cooldown = data.cooldown;
     }
 }
 /* pub const ZOMBIE: Enemy = Enemy {

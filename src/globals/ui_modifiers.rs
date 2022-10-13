@@ -14,3 +14,6 @@ pub struct RevertScale;
 
 #[derive(Component)]
 pub struct KeyFocus;
+
+#[derive(Component)]
+pub struct Inventory;
