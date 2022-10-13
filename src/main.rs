@@ -15,6 +15,8 @@ fn main() {
         .add_plugin(setup::settings::SettingsPlugin)
         .add_plugin(WorldInspectorPlugin::new())
         .add_plugin(InspectorPlugin::<globals::character_modifiers::PlayerData>::new())
+        .add_plugin(InspectorPlugin::<globals::character_modifiers::EnemyData>::new())
+        .add_plugin(globals::character_modifiers::GuiPlugin)
         .add_system(controls::controller::gamepad_connections)
         .add_plugin(HanabiPlugin)
         .add_startup_system(setup::camera::ui_camera)
