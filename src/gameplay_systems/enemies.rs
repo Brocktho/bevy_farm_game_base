@@ -1,7 +1,17 @@
 use crate::globals::character_modifiers::{Behaviors, Enemy, Player};
 use crate::globals::scene_modifiers::EnemyTimer;
+use crate::states::GameState;
 use bevy::prelude::*;
 use rand::Rng;
+
+pub struct EnemyPlugin;
+
+impl Plugin for EnemyPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(spawn_enemies))
+            .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_enemies));
+    }
+}
 
 pub fn spawn_enemies(
     mut commands: Commands,
