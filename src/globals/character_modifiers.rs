@@ -10,7 +10,8 @@ impl Plugin for GuiPlugin {
     fn build(&self, app: &mut App) {
         app.add_system_set(
             SystemSet::on_update(GameState::GameLoop).with_system(update_player_values),
-        );
+        )
+        .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(update_enemy_values));
     }
 }
 

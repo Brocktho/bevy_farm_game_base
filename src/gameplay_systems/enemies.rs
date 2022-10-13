@@ -73,3 +73,65 @@ pub fn spawn_enemies(
         }
     }
 }
+
+pub fn move_enemies(
+    players: Query<&Player>,
+    mut enemies: Query<(&mut Transform, &mut Enemy, With<Enemy>)>,
+    time: Res<Time>,
+) {
+    if !players.is_empty() {
+        let player = players.iter().next().unwrap();
+        let target = player.location;
+        enemies
+            .iter_mut()
+            .for_each(|(mut transform, mut stats, _search)| {
+                let dx = target.x - transform.translation.x;
+                let dy = target.y - transform.translation.y;
+                match stats.behavior {
+                    Behaviors::Smooth => {
+                        if dx > 0.0 {
+                            if !stats.x_direction {
+                                stats.current_speed.x = 0.0;
+                            }
+                            if stats.current_speed.x < stats.max_speed {
+                                stats.current_speed.x += stats.acceleration * time.delta_seconds();
+                            }
+                            transform.translation.x += stats.current_speed.x * time.delta_seconds();
+                            stats.x_direction = true;
+                        } else if dx < 0.0 {
+                            if stats.x_direction {
+                                stats.current_speed.x = 0.0;
+                            }
+                            if stats.current_speed.x < stats.max_speed {
+                                stats.current_speed.x += stats.acceleration * time.delta_seconds();
+                            }
+                            transform.translation.x -= stats.current_speed.x * time.delta_seconds();
+                            stats.x_direction = false;
+                        }
+
+                        if dy > 0.0 {
+                            if !stats.y_direction {
+                                stats.current_speed.y = 0.0;
+                            }
+                            if stats.current_speed.y < stats.max_speed {
+                                stats.current_speed.y += stats.acceleration * time.delta_seconds();
+                            }
+                            transform.translation.y += stats.current_speed.y * time.delta_seconds();
+                            stats.y_direction = true;
+                        } else if dy < 0.0 {
+                            if stats.y_direction {
+                                stats.current_speed.y = 0.0;
+                            }
+                            if stats.current_speed.y < stats.max_speed {
+                                stats.current_speed.y += stats.acceleration * time.delta_seconds();
+                            }
+                            transform.translation.y -= stats.current_speed.y * time.delta_seconds();
+                            stats.y_direction = false;
+                        }
+                    }
+                    Behaviors::Burst => {}
+                    Behaviors::Charge => {}
+                }
+            });
+    }
+}
