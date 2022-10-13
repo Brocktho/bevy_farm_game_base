@@ -1,5 +1,6 @@
 use crate::controls::camera::move_camera;
 use crate::controls::player::move_character;
+use crate::gameplay_systems::cycles::EnemyTimer;
 use crate::globals::character_modifiers::*;
 use crate::globals::scene_modifiers::*;
 use crate::globals::ui_modifiers::{GameUi, Inventory, UiGrid};
@@ -7,13 +8,35 @@ use crate::states::GameState;
 use bevy::prelude::*;
 use rand::Rng;
 use std::time::Duration;
+
+#[derive(Component, Deref, DerefMut)]
+pub struct AnimationTimer(Timer);
 pub struct GameScenePlugin;
 
 impl Plugin for GameScenePlugin {
     fn build(&self, app: &mut App) {
         app.add_system_set(SystemSet::on_enter(GameState::GameLoop).with_system(initialize_game))
+            .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(animate_sprite))
             .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_character))
             .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_camera));
+    }
+}
+
+pub fn animate_sprite(
+    time: Res<Time>,
+    texture_atlases: Res<Assets<TextureAtlas>>,
+    mut query: Query<(
+        &mut AnimationTimer,
+        &mut TextureAtlasSprite,
+        &Handle<TextureAtlas>,
+    )>,
+) {
+    for (mut timer, mut sprite, texture_atlas_handle) in &mut query {
+        timer.tick(time.delta());
+        if timer.just_finished() {
+            let texture_atlas = texture_atlases.get(texture_atlas_handle).unwrap();
+            sprite.index = (sprite.index + 1) % texture_atlas.textures.len();
+        }
     }
 }
 
@@ -24,26 +47,30 @@ pub fn initialize_game(
     home_grid: Query<Entity, &FarmLand>,
     background_grid: Query<&Background>,
     game_ui: Query<&GameUi>,
+    mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
-    let handle: Handle<Image> = server.load("images/Bunny.png");
     if players.is_empty() {
+        let handle: Handle<Image> = server.load("images/Player.png");
+        let texture_atlas = TextureAtlas::from_grid(handle, Vec2::new(28.0, 28.0), 4, 6);
+        let texture_atlas_handle = texture_atlases.add(texture_atlas);
+
         commands
-            .spawn_bundle(SpriteBundle {
-                texture: handle.clone(),
+            .spawn_bundle(SpriteSheetBundle {
+                texture_atlas: texture_atlas_handle,
                 transform: Transform {
-                    translation: Vec3::splat(1.0),
-                    scale: Vec3::splat(0.5),
+                    translation: Vec3::splat(2.0),
+                    scale: Vec3::splat(2.0),
                     //translation:
                     ..default()
                 },
                 ..default()
             })
+            .insert(AnimationTimer(Timer::from_seconds(0.041, true)))
             .insert(Player {
                 //health: 3,
                 ..default()
             })
             .insert(Name::new("Player"));
-        commands.insert_resource(UiImage(handle));
         commands.insert_resource(EnemyTimer {
             timer: Timer::new(Duration::from_secs(3), true),
         });

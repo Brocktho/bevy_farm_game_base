@@ -7,26 +7,6 @@ pub struct GameGrid {
 }
 
 #[derive(Component)]
-pub struct EnemyTimer {
-    pub timer: Timer,
-}
-
-#[derive(Component)]
-pub struct CycleTimer {
-    pub timer: Timer,
-}
-
-#[derive(Component)]
-pub struct DayTimer {
-    pub timer: Timer,
-}
-
-#[derive(Component)]
-pub struct NightTimer {
-    pub timer: Timer,
-}
-
-#[derive(Component)]
 pub struct Particle;
 
 #[derive(Component)]

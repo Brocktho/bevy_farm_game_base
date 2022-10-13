@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy::render::texture::ImageSettings;
 use bevy_hanabi::HanabiPlugin;
 use bevy_inspector_egui::{InspectorPlugin, WorldInspectorPlugin};
 mod controls;
@@ -9,6 +10,7 @@ mod states;
 
 fn main() {
     App::new()
+        .insert_resource(ImageSettings::default_nearest())
         .add_plugins(DefaultPlugins)
         .add_plugin(setup::menu::MainMenuPlugin)
         .add_plugin(setup::scene::GameScenePlugin)

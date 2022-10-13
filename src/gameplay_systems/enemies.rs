@@ -1,7 +1,7 @@
+use crate::gameplay_systems::cycles::EnemyTimer;
 use crate::globals::character_modifiers::{
     Behaviors, Bursting, Charging, Cooldown, Enemy, EnemyData, Player,
 };
-use crate::globals::scene_modifiers::EnemyTimer;
 use crate::states::GameState;
 use bevy::prelude::*;
 use libm::{atan2f, cosf, sinf};
