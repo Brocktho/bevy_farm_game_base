@@ -1,11 +1,15 @@
 # Fast Paced Farming Game
 
 ## Global Terms:
+  * TTI ( Time To Implement );
   * Cycles = full day night, takes 2 minutes;
   * Backpack = **6 slots; -> 8 slots; -> 10 slots;**
-  * **(!)** denotes a prioritized item for initial release
-  * *(?)* denotes subject to change and or low priority item but is considered.
-
+  * **(!)** denotes a prioritized item for initial release;
+  * *(?)* denotes subject to change and or low priority item but is considered;
+  * When discussing Features that need to be made a score will be provided for difficulty, effort, and confidence;
+  * Difficulty: Pretty straight forward, how it appears to me to implement, Higher difficulty makes TTI wildly vary;
+  * Effort: How much work is required to implement, effort is most likely a linear TTI scale;
+  * Confidence: How confident I am in the previous two metrics, High confidence means ratings are probably correct;
 ## Primary Goals:
   * Fast paced gameplay where there is always something to do.
   * Personalized experience where choices affect the challenges you face.
@@ -20,6 +24,20 @@
 ## Primary Systems
 
 ### Main Gameplay Loop
+#### What Must Be Done To Allow Feature:
+  ** These are very different difficulty and effort values compared to others **
+  - [ ] Complete Enemies Tab;
+  * Difficulty: 6/10, Effort: 8/10, Confidence: 2/10;
+  - [ ] Complete Crops Tab;
+  * Difficulty: 7/10, Effort: 8/10, Confidence: 2/10;
+  - [ ] Complete Player Tab;
+  * Difficulty: 8/10, Effort: 8/10, Confidence: 2/10;
+  - [ ] Complete Upgrades Tab;
+  * Difficulty: 9/10, Effort: 9/10, Confidence: 5/10;
+  - [ ] Complete Sprite Work;
+  * Difficulty: 9/10, Effort: 10/10, Confidence: 7/10;
+  - [ ] Tune Gameplay;
+  * Difficulty: 3/10, Effort: 10/10, Confidence: 5/10;
 #### Daytime Primary Objectives:
   - [ ] Plant Crops
   - [ ] Maintain Crops
@@ -41,6 +59,17 @@
   - [ ] Alternates between purchaseable and free upgrades/boons **(!)**
 
 ### Enemies
+#### What Must Be Done To Allow Feature:
+  - [ ] Enemy sprites to be made, desired animations: Walking, Attacking;
+  * Difficulty: 8/10, Effort: 10/10, Confidence: 6/10;
+  - [ ] Research/Document/Test Spawn Mechanics;
+  * Difficulty: 3/10, Effort: 5/10, Confidence: 8/10;
+  - [ ] Research/Test Movement Mechanics ( Behaviors, Acceleration, & Max Speed);
+  * Difficulty: 3/10, Effort: 6/10, Confidence: 8/10;
+  - [ ] Research/Test Attack Mechanics ( Attack Style, Range, & Damage );
+  * Difficulty: 5/10, Effort: 8/10, Confidence: 6/10;
+  - [ ] Research/Test Enemy Focus;
+  * Difficulty: 7/10, Effort: 6/10, Confidence: 5/10;
 #### Dictionary: 
   - [ ] HP ( Health ) - Hits it takes to kill *(?)*;
   - [ ] Attracted By / Targets *(?)*;
@@ -122,7 +151,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-- [ ] 🦊
+  - [ ] 🦊
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -132,7 +161,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-- [ ] 🧟
+  - [ ] 🧟
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -143,7 +172,7 @@
   * Attack Style *(?)*
   * Attack Range *(?)*
 ##### Ranged Hunters:
-- [ ] 🦂
+  - [ ] 🦂
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -154,7 +183,7 @@
   * Attack Style *(?)*
   * Attack Range *(?)*
 ##### Debuff Hunter: *(?)*
-- [ ] 🦅 *(?)* ( structure debuffer )
+  - [ ] 🦅 *(?)* ( structure debuffer )
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -164,7 +193,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-- [ ] 🦟 *(?)* ( crop debuffer )
+  - [ ] 🦟 *(?)* ( crop debuffer )
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -177,36 +206,101 @@
 
 ### Upgrades:
 #### What Must Be Done To Allow Feature:
-  - [ ]
+  - [ ] Need to be able to save player progress;
+  * Difficulty: 7/10, Effort: 7/10, Confidence: 8/10;
+  - [ ] Create values for each object;
+  * Difficulty: 4/10, Effort: 7/10, Confidence: 7/10;
+  - [ ] Think of additional objects;
+  * Difficulty: 5/10, Effort: 8/10, Confidence: 8/10;
+  - [ ] Figure out UI/UX for creating, moving, using buildings & upgrades;
+  * Difficulty: 7/10, Effort: 9/10, Confidence: 7/10;
+  - [ ] Figure out UI/UX for upgrade menu, meta progression, etc;
+  * Difficulty: 7/10, Effort: 8/10, Confidence: 5/10;
 #### Dictionary:
   - [ ] HP ( Health );
   - [ ] Cost;
   - [ ] Unlockable - if not unlockable, unlocked by default;
-  - [ ] Unlock Cost - if unlockable,
-  - [ ]  
+  - [ ] Unlock Cost - if unlockable;
+  - [ ] TTB ( Time To Build ) *(?)*;
+  - [ ] TTR ( Time To Repair ) *(?)*;
+  - [ ] COR ( Cost Of Repair ) *(?)*;
+  - [ ] Function - What the building does
 #### In Game Upgrades: 
-- [ ] 🏠 ( homestead ) **outside of game: _visual representation of progress_**
-- [ ] 🪵 ( wall/fence )
-- [ ] 🐝 ( 🐝 box permanent structure for sub area )
-- [ ] 🎇 ( sprinkler boost growth time )
-- [ ] 🌱 ( seed mill turn ground crops into seeds ) 1 crop -> 2 seeds;
-- [ ] 🟫 ( Farm Grid )
+  - [ ] 🏠 Homestead 
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTB: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: **outside of game: _visual representation of progress_**;
+  - [ ] 🪵 Wall/Fence
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTB: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: Block Enemies from coming a specific direction, forcing them to hit through or go around.
+  - [ ] 🐝  Bee Box
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTB: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: Permanent structure to bee boost small area;
+  - [ ] 🎇 Sprinkler
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTB: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: Boost growth time; 
+  - [ ] 🌱 Seed Mill
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTB: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: Turn ground crops into seeds 1 crop -> 2 seeds;
+  - [ ] 🟫 ( Farm Grid )
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTB: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: Plant, Maintain & Harvest crops;
 
 #### Temporary Buffs:
-  * 🐝 
-  * 🐞 
-  * bug spray *( no good emoji 🥺 )* 
+  - [ ] 🐝 
+  - [ ] 🐞 
+  - [ ] bug spray *( no good emoji 🥺 )* 
 
 #### Crops:
+#### What Must Be Done To Allow Feature:
+  - [ ] Player must cast their focus in front of them to show where the player intends to perform an action. Highlighting specific target they have access to.
+  * Difficulty: 7/10, Work Required: 7/10, Confidence: 6/10 
+  - [ ] PLayer must be able to interact ( Press E ? ) once focused.
+  * Difficulty: 1/10, Work Required: 4/10, Confidence: 8/10
 ##### Dictionary:
-  * TTG *( Time to Grow )*
-  * Harvested Amount
-  * Boost Effect: TTL *( Time To Live )* on boost
-  * Market Price
-  * Upkeep
-  * Boostable
-  * PPS *( Price Per Seed )*
-  * Hot Sale: prices up for specific crops;
+  - [ ] TTG *( Time to Grow )*
+  - [ ] Harvested Amount
+  - [ ] Boost Effect: TTL *( Time To Live )* on boost
+  - [ ] Market Price
+  - [ ] Upkeep
+  - [ ] Boostable
+  - [ ] PPS *( Price Per Seed )*
+  - [ ] Hot Sale: prices up for specific crops;
 
 ##### Action Times:
   - [ ] planting ( *?🌱?* ): **4.0 seconds**;
@@ -216,7 +310,7 @@
   - [ ] harvesting ( 🧑‍🌾 ): **0.5 seconds**;
 
 ##### Ground Crops: 
-- [ ] 🌽  
+  - [ ] 🌽  
   * TTG: 3 cycle;
   * Harvest Amount: 1;
   * Boost Effect: 1 max hp heal; 
@@ -224,7 +318,7 @@
   * Upkeep: Set and forget; 
   * Boostable: 💧 💩 🐞;
         
-- [ ] 🍓  
+  - [ ] 🍓  
   * TTG: 2 cycle;
   * Harvest Amount: 1;
   * Boost Effect: *(?)*;
@@ -232,7 +326,7 @@
   * Upkeep: *(?)*;
   * Boostable: 💩 🐝;
 
-- [ ] 🍉  
+  - [ ] 🍉  
   * TTG: *(?)*;
   * Harvest Amount: 1;
   * Boost Effect:*(?)*; 
@@ -240,7 +334,7 @@
   * Upkeep:*(?)*;
   * Boostable: 💩 🐞 🐝;
         
-- [ ] 🧇 (wheat) 
+  - [ ] 🧇 (wheat) 
   * TTG: 1 cycle;
   * Harvest Amount: 1; 
   * Boost Effect: 1 hp heal; 
@@ -248,7 +342,7 @@
   * Upkeep: Set and forget;
   * Boostable: 💧 💩 🐞;
         
-- [ ] 🫑  
+  - [ ] 🫑  
   * TTG: 1.5 cycle; 
   * Harvest Amount: 1;
   * Boost Effect: dmg boost; 
@@ -257,7 +351,7 @@
   * Boostable: 🐞 🐝 💩
 
 ##### Trees:
-- [ ] 🍎  
+  - [ ] 🍎  
   * TTG: 5 cycle (harvest every 2);
   * Harvest Amount: 4;
   * Boost Effect: Harvest time boost; 50% *(?)* .25 cycles; **loooking for like 20-30 seconds**
@@ -265,7 +359,7 @@
   * Upkeep: 💧 1 cycle; 💧 + 🐝 3 cycles; 
   * Boostable: 💩 🐞 🐝;
 
-- [ ] 🥑  
+  - [ ] 🥑  
   * TTG: 3 cycle (harvest every 3);
   * Harvested Amount: 2; 
   * Boost Effect: temp hp +1 per fruit;
@@ -273,7 +367,7 @@
   * Upkeep: 💧 + 💩 .5 cycle; 1.5 cycle upkeep after;
   * Boostable: 🐞 🐝;
         
-- [ ] 🍌  
+  - [ ] 🍌  
   * TTG: 4 cycle (harvest every 3); 
   * Harvest Amount: 3;
   * Boost Effect: speed boost; **10%** *(?)* 
