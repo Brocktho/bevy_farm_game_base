@@ -151,13 +151,15 @@ pub fn initialize_game(
     }
     if game_ui.is_empty() {
         let inventory_slot = server.load("images/InventorySlot.png");
-        let daylight: Handle<Image> = server.load("images/Day.png");
-        let start: Handle<Image> = server.load("images/1200.png");
+        let clock_hand: Handle<Image> = server.load("images/ClockHand.png");
+        let clock: Handle<Image> = server.load("images/Clock.png");
         commands
             .spawn_bundle(NodeBundle {
                 style: Style {
+                    display: Display::Flex,
                     justify_content: JustifyContent::SpaceBetween,
                     flex_direction: FlexDirection::ColumnReverse,
+                    position_type: PositionType::Relative,
                     size: Size {
                         width: Val::Percent(100.0),
                         height: Val::Percent(100.0),
@@ -171,77 +173,43 @@ pub fn initialize_game(
             .insert(GameUi)
             .insert(Name::new("Ui Parent"))
             .add_children(|parent| {
-                parent
-                    .spawn_bundle(NodeBundle {
-                        style: Style {
-                            size: Size {
-                                width: Val::Percent(100.0),
-                                height: Val::Percent(10.0),
-                            },
-                            flex_direction: FlexDirection::Row,
-                            justify_content: JustifyContent::FlexStart,
-
-                            ..default()
+                parent.spawn_bundle(ImageBundle {
+                    style: Style {
+                        size: Size {
+                            width: Val::Px(84.0),
+                            height: Val::Px(84.0),
                         },
-                        color: UiColor(Color::rgba(0., 0., 0., 0.)),
+                        position_type: PositionType::Absolute,
+                        position: UiRect {
+                            top: Val::Percent(90.0),
+                            left: Val::Percent(2.0),
+                            right: Val::Percent(90.0),
+                            bottom: Val::Percent(87.0),
+                        },
                         ..default()
-                    })
-                    .insert(Name::new("Time Row"))
-                    .with_children(|timer_row| {
-                        timer_row
-                            .spawn_bundle(NodeBundle {
-                                style: Style {
-                                    size: Size {
-                                        width: Val::Percent(20.0),
-                                        height: Val::Percent(100.0),
-                                    },
-                                    flex_direction: FlexDirection::Row,
-                                    padding: UiRect {
-                                        left: Val::Px(8.0),
-                                        top: Val::Px(8.0),
-                                        right: Val::Px(0.0),
-                                        bottom: Val::Px(0.0),
-                                    },
-                                    justify_content: JustifyContent::Center,
-                                    align_items: AlignItems::Center,
+                    },
+                    image: UiImage(clock.clone()),
+                    ..default()
+                });
+                parent.spawn_bundle(ImageBundle {
+                    style: Style {
+                        size: Size {
+                            width: Val::Px(84.0),
+                            height: Val::Px(84.0),
+                        },
+                        position_type: PositionType::Absolute,
+                        position: UiRect {
+                            top: Val::Percent(90.0),
+                            left: Val::Percent(2.0),
+                            right: Val::Percent(90.0),
+                            bottom: Val::Percent(87.0),
+                        },
+                        ..default()
+                    },
+                    image: UiImage(clock_hand.clone()),
+                    ..default()
+                });
 
-                                    ..default()
-                                },
-                                color: UiColor(Color::rgba(0., 0., 0., 0.)),
-                                ..default()
-                            })
-                            .insert(Name::new("Top Left Block"))
-                            .with_children(|time_block| {
-                                time_block.spawn_bundle(ImageBundle {
-                                    style: Style {
-                                        size: Size {
-                                            width: Val::Percent(50.0),
-                                            height: Val::Percent(100.0),
-                                        },
-                                        margin: UiRect {
-                                            right: Val::Px(8.0),
-                                            left: Val::Px(0.0),
-                                            bottom: Val::Px(0.0),
-                                            top: Val::Px(0.0),
-                                        },
-                                        ..default()
-                                    },
-                                    image: UiImage(start.clone()),
-                                    ..default()
-                                });
-                                time_block.spawn_bundle(ImageBundle {
-                                    style: Style {
-                                        size: Size {
-                                            width: Val::Percent(45.0),
-                                            height: Val::Percent(100.0),
-                                        },
-                                        ..default()
-                                    },
-                                    image: UiImage(daylight.clone()),
-                                    ..default()
-                                });
-                            });
-                    });
                 parent
                     .spawn_bundle(NodeBundle {
                         style: Style {
@@ -251,6 +219,13 @@ pub fn initialize_game(
                                 width: Val::Percent(100.0),
                                 height: Val::Percent(10.0),
                                 ..default()
+                            },
+                            position_type: PositionType::Absolute,
+                            position: UiRect {
+                                top: Val::Px(8.0),
+                                left: Val::Px(8.0),
+                                right: Val::Px(0.0),
+                                bottom: Val::Px(0.0),
                             },
                             ..default()
                         },
