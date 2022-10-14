@@ -21,45 +21,45 @@
 
 ### Main Gameplay Loop
 #### Daytime Primary Objectives:
-  [] Plant Crops
-  [] Maintain Crops
-  [] Harvest Crops
+  - [ ] Plant Crops
+  - [ ] Maintain Crops
+  - [ ] Harvest Crops
 
 #### Nighttime Primary Objectives:
-  [] Defend Crops
-  [] Maintain Crops
-  [] Survive
+  - [ ] Defend Crops
+  - [ ] Maintain Crops
+  - [ ] Survive
 
 #### Purchase/Receive Upgrades & Meta Progression From Care Packages:
-  [] Character Upgrades **(!)**
-  [] Character Unlocks **(!)**
-  [] Farm Upgrades **(!)**
-  [] Farm Unlocks **(!)**
-  [] Farm Main Menu Visual Progression *(?)*
-  [] Character Skins *(?)*
-  [] End of cycle drops an interactable that pauses gameplay **(!)**
-  [] Alternates between purchaseable and free upgrades/boons **(!)**
+  - [ ] Character Upgrades **(!)**
+  - [ ] Character Unlocks **(!)**
+  - [ ] Farm Upgrades **(!)**
+  - [ ] Farm Unlocks **(!)**
+  - [ ] Farm Main Menu Visual Progression *(?)*
+  - [ ] Character Skins *(?)*
+  - [ ] End of cycle drops an interactable that pauses gameplay **(!)**
+  - [ ] Alternates between purchaseable and free upgrades/boons **(!)**
 
 ### Enemies
 #### Dictionary: 
-  [] HP ( Health ) - Hits it takes to kill *(?)*;
-  [] Attracted By / Targets *(?)*;
-  [] Damage - Damage it deals to target;
-  [x] Max Speed - Fastest it can move ( subject to movement type );
-  [x] Acceleration - How quickly it accumulates speed;
-  [] Behavior - How it moves;
-    [x] Smooth
-    [x] Burst
-    [] Charge
-  [] Focus - How much it focuses it's target, higher number = higher focus on target;
-  [] Attack Style - How it attacks;
-    [] Melee
-    [] Ranged
-    [] Support
-  [] Attack Range - How far it reaches;
+  - [ ] HP ( Health ) - Hits it takes to kill *(?)*;
+  - [ ] Attracted By / Targets *(?)*;
+  - [ ] Damage - Damage it deals to target;
+  - [x] Max Speed - Fastest it can move ( subject to movement type );
+  - [x] Acceleration - How quickly it accumulates speed;
+  - [ ] Behavior - How it moves;
+    - [x] Smooth
+    - [x] Burst
+    - [ ] Charge
+  - [ ] Focus - How much it focuses it's target, higher number = higher focus on target;
+  - [ ] Attack Style - How it attacks;
+    - [ ] Melee
+    - [ ] Ranged
+    - [ ] Support
+  - [ ] Attack Range - How far it reaches;
 #### Crop Hunters: 
 ##### Ground Crops:
-  [] 🪲
+  - [ ] 🪲
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -69,7 +69,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-  [] 🐜
+  - [ ] 🐜
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -80,7 +80,7 @@
   * Attack Style *(?)*
   * Attack Range *(?)*
 ##### Trees:
-  [] 🦫 
+  - [ ] 🦫 
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -90,7 +90,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-  [] 🦇 *(?)*
+  - [ ] 🦇 *(?)*
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -102,7 +102,7 @@
   * Attack Range *(?)*
 #### Player Hunters:
 ##### Melee Hunters:
-  [] 🐺
+  - [ ] 🐺
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -112,7 +112,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-  [] 🦀
+  - [ ] 🦀
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -122,7 +122,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-[] 🦊
+- [ ] 🦊
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -132,7 +132,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-[] 🧟
+- [ ] 🧟
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -143,7 +143,7 @@
   * Attack Style *(?)*
   * Attack Range *(?)*
 ##### Ranged Hunters:
-[] 🦂
+- [ ] 🦂
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -154,7 +154,7 @@
   * Attack Style *(?)*
   * Attack Range *(?)*
 ##### Debuff Hunter: *(?)*
-[] 🦅 *(?)* ( structure debuffer )
+- [ ] 🦅 *(?)* ( structure debuffer )
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -164,7 +164,7 @@
   * Focus *(?)*
   * Attack Style *(?)*
   * Attack Range *(?)*
-[] 🦟 *(?)* ( crop debuffer )
+- [ ] 🦟 *(?)* ( crop debuffer )
   * HP *(?)*
   * Attracted By *(?)*
   * Damage *(?)*
@@ -177,20 +177,20 @@
 
 ### Upgrades:
 #### What Must Be Done To Allow Feature:
-  []
+  - [ ]
 #### Dictionary:
-  [] HP ( Health );
-  [] Cost;
-  [] Unlockable - if not unlockable, unlocked by default;
-  [] Unlock Cost - if unlockable,
-  []  
+  - [ ] HP ( Health );
+  - [ ] Cost;
+  - [ ] Unlockable - if not unlockable, unlocked by default;
+  - [ ] Unlock Cost - if unlockable,
+  - [ ]  
 #### In Game Upgrades: 
-[] 🏠 ( homestead ) **outside of game: _visual representation of progress_**
-[] 🪵 ( wall/fence )
-[] 🐝 ( 🐝 box permanent structure for sub area )
-[] 🎇 ( sprinkler boost growth time )
-[] 🌱 ( seed mill turn ground crops into seeds ) 1 crop -> 2 seeds;
-[] 🟫 ( Farm Grid )
+- [ ] 🏠 ( homestead ) **outside of game: _visual representation of progress_**
+- [ ] 🪵 ( wall/fence )
+- [ ] 🐝 ( 🐝 box permanent structure for sub area )
+- [ ] 🎇 ( sprinkler boost growth time )
+- [ ] 🌱 ( seed mill turn ground crops into seeds ) 1 crop -> 2 seeds;
+- [ ] 🟫 ( Farm Grid )
 
 #### Temporary Buffs:
   * 🐝 
@@ -209,14 +209,14 @@
   * Hot Sale: prices up for specific crops;
 
 ##### Action Times:
-  [] planting ( *?🌱?* ): **4.0 seconds**;
-  [] watering ( 💧 ): **0.5 seconds**;
-  [] fertilizer ( 💩 ): **2.0 seconds**;
-  [] water refill ( 🪣 ): **2.5 seconds**; *(?)*
-  [] harvesting ( 🧑‍🌾 ): **0.5 seconds**;
+  - [ ] planting ( *?🌱?* ): **4.0 seconds**;
+  - [ ] watering ( 💧 ): **0.5 seconds**;
+  - [ ] fertilizer ( 💩 ): **2.0 seconds**;
+  - [ ] water refill ( 🪣 ): **2.5 seconds**; *(?)*
+  - [ ] harvesting ( 🧑‍🌾 ): **0.5 seconds**;
 
 ##### Ground Crops: 
-[] 🌽  
+- [ ] 🌽  
   * TTG: 3 cycle;
   * Harvest Amount: 1;
   * Boost Effect: 1 max hp heal; 
@@ -224,7 +224,7 @@
   * Upkeep: Set and forget; 
   * Boostable: 💧 💩 🐞;
         
-[] 🍓  
+- [ ] 🍓  
   * TTG: 2 cycle;
   * Harvest Amount: 1;
   * Boost Effect: *(?)*;
@@ -232,7 +232,7 @@
   * Upkeep: *(?)*;
   * Boostable: 💩 🐝;
 
-[] 🍉  
+- [ ] 🍉  
   * TTG: *(?)*;
   * Harvest Amount: 1;
   * Boost Effect:*(?)*; 
@@ -240,7 +240,7 @@
   * Upkeep:*(?)*;
   * Boostable: 💩 🐞 🐝;
         
-[] 🧇 (wheat) 
+- [ ] 🧇 (wheat) 
   * TTG: 1 cycle;
   * Harvest Amount: 1; 
   * Boost Effect: 1 hp heal; 
@@ -248,7 +248,7 @@
   * Upkeep: Set and forget;
   * Boostable: 💧 💩 🐞;
         
-[] 🫑  
+- [ ] 🫑  
   * TTG: 1.5 cycle; 
   * Harvest Amount: 1;
   * Boost Effect: dmg boost; 
@@ -257,7 +257,7 @@
   * Boostable: 🐞 🐝 💩
 
 ##### Trees:
-[] 🍎  
+- [ ] 🍎  
   * TTG: 5 cycle (harvest every 2);
   * Harvest Amount: 4;
   * Boost Effect: Harvest time boost; 50% *(?)* .25 cycles; **loooking for like 20-30 seconds**
@@ -265,7 +265,7 @@
   * Upkeep: 💧 1 cycle; 💧 + 🐝 3 cycles; 
   * Boostable: 💩 🐞 🐝;
 
-[] 🥑  
+- [ ] 🥑  
   * TTG: 3 cycle (harvest every 3);
   * Harvested Amount: 2; 
   * Boost Effect: temp hp +1 per fruit;
@@ -273,7 +273,7 @@
   * Upkeep: 💧 + 💩 .5 cycle; 1.5 cycle upkeep after;
   * Boostable: 🐞 🐝;
         
-[] 🍌  
+- [ ] 🍌  
   * TTG: 4 cycle (harvest every 3); 
   * Harvest Amount: 3;
   * Boost Effect: speed boost; **10%** *(?)* 
