@@ -18,7 +18,15 @@ impl Plugin for GameScenePlugin {
         app.add_system_set(SystemSet::on_enter(GameState::GameLoop).with_system(initialize_game))
             .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(animate_sprite))
             .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_character))
-            .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_camera));
+            .add_system_set(SystemSet::on_update(GameState::GameLoop).with_system(move_camera))
+            .add_system_set(SystemSet::on_pause(GameState::GameLoop).with_system(unmount_ui))
+            .add_system_set(SystemSet::on_exit(GameState::GameLoop).with_system(unmount_ui));
+    }
+}
+
+pub fn unmount_ui(mut commands: Commands, existing_ui: Query<Entity, With<GameUi>>) {
+    for entity in existing_ui.iter() {
+        commands.entity(entity).despawn_recursive();
     }
 }
 
@@ -59,7 +67,7 @@ pub fn initialize_game(
                 texture_atlas: texture_atlas_handle,
                 transform: Transform {
                     translation: Vec3::splat(2.0),
-                    scale: Vec3::splat(2.0),
+                    scale: Vec3::splat(1.0),
                     //translation:
                     ..default()
                 },

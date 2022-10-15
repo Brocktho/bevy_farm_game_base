@@ -36,6 +36,15 @@ impl Default for Player {
     }
 }
 
+pub struct Item;
+
+impl Hold for Item {}
+
+#[derive(Component)]
+pub struct PlayerInventory {
+    slot1: Item,
+}
+
 // Player Inspection Zone:
 #[derive(Inspectable)]
 pub struct PlayerData {
