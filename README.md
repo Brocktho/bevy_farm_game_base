@@ -221,7 +221,7 @@
   - [ ] Cost;
   - [ ] Unlockable - if not unlockable, unlocked by default;
   - [ ] Unlock Cost - if unlockable;
-  - [ ] TTB ( Time To Build ) *(?)*;
+  - [ ] TTD ( Time To Deploy ) *(?)*;
   - [ ] TTR ( Time To Repair ) *(?)*;
   - [ ] COR ( Cost Of Repair ) *(?)*;
   - [ ] Function - What the building does
@@ -231,7 +231,7 @@
   * Cost: *(?)*
   * Unlockable: *(?)*
   * Unlock Cost: *(?)*
-  * TTB: *(?)*
+  * TTD: *(?)*
   * TTR: *(?)*
   * COR: *(?)*
   * Function: **outside of game: _visual representation of progress_**;
@@ -240,7 +240,7 @@
   * Cost: *(?)*
   * Unlockable: *(?)*
   * Unlock Cost: *(?)*
-  * TTB: *(?)*
+  * TTD: *(?)*
   * TTR: *(?)*
   * COR: *(?)*
   * Function: Block Enemies from coming a specific direction, forcing them to hit through or go around.
@@ -249,7 +249,7 @@
   * Cost: *(?)*
   * Unlockable: *(?)*
   * Unlock Cost: *(?)*
-  * TTB: *(?)*
+  * TTD: *(?)*
   * TTR: *(?)*
   * COR: *(?)*
   * Function: Permanent structure to bee boost small area;
@@ -258,7 +258,7 @@
   * Cost: *(?)*
   * Unlockable: *(?)*
   * Unlock Cost: *(?)*
-  * TTB: *(?)*
+  * TTD: *(?)*
   * TTR: *(?)*
   * COR: *(?)*
   * Function: Boost growth time; 
@@ -267,7 +267,7 @@
   * Cost: *(?)*
   * Unlockable: *(?)*
   * Unlock Cost: *(?)*
-  * TTB: *(?)*
+  * TTD: *(?)*
   * TTR: *(?)*
   * COR: *(?)*
   * Function: Turn ground crops into seeds 1 crop -> 2 seeds;
@@ -276,15 +276,39 @@
   * Cost: *(?)*
   * Unlockable: *(?)*
   * Unlock Cost: *(?)*
-  * TTB: *(?)*
+  * TTD: *(?)*
   * TTR: *(?)*
   * COR: *(?)*
   * Function: Plant, Maintain & Harvest crops;
 
 #### Temporary Buffs:
   - [ ] 🐝 
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTD: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: Plant, Maintain & Harvest crops;
   - [ ] 🐞 
-  - [ ] bug spray *( no good emoji 🥺 )* 
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTD: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: Plant, Maintain & Harvest crops;
+  - [ ] bug spray *( no good emoji 🥺 )*
+  * HP: *(?)*
+  * Cost: *(?)*
+  * Unlockable: *(?)*
+  * Unlock Cost: *(?)*
+  * TTD: *(?)*
+  * TTR: *(?)*
+  * COR: *(?)*
+  * Function: Plant, Maintain & Harvest crops;
 
 #### Crops:
 #### What Must Be Done To Allow Feature:
